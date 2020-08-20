@@ -12,7 +12,7 @@ import { Customer } from './customer.entity'
 @Entity('customer_channel')
 export class CustomerChannel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number
+  id?: number
 
   @Column({ name: 'company_id' })
   company_id: number
@@ -39,10 +39,10 @@ export class CustomerChannel {
   staff_id?: number | null
 
   @CreateDateColumn({ name: 'created_at', update: false })
-  created_at: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date
+  updated_at?: Date
 
   @Column({ name: 'customer_id' })
   customer_id: number
@@ -52,5 +52,5 @@ export class CustomerChannel {
     onUpdate: 'NO ACTION',
   })
   @JoinColumn([{ name: 'customer_id', referencedColumnName: 'id' }])
-  customer: Customer
+  customer?: Customer
 }

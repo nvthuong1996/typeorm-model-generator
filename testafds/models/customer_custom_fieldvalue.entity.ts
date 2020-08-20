@@ -13,7 +13,7 @@ import { CustomerCustomField } from './customer_custom_field.entity'
 @Entity('customer_custom_fieldvalue')
 export class CustomerCustomFieldvalue {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number
+  id?: number
 
   @Column({ name: 'comany_id' })
   comany_id: number
@@ -22,10 +22,10 @@ export class CustomerCustomFieldvalue {
   value: string
 
   @CreateDateColumn({ name: 'created_at', update: false })
-  created_at: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date
+  updated_at?: Date
 
   @Column({ name: 'custom_field_id' })
   custom_field_id: number
@@ -38,7 +38,7 @@ export class CustomerCustomFieldvalue {
     onUpdate: 'NO ACTION',
   })
   @JoinColumn([{ name: 'customers_id', referencedColumnName: 'id' }])
-  customers: Customer
+  customers?: Customer
 
   @ManyToOne(
     () => CustomerCustomField,
@@ -46,5 +46,5 @@ export class CustomerCustomFieldvalue {
     { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' },
   )
   @JoinColumn([{ name: 'custom_field_id', referencedColumnName: 'id' }])
-  custom_field: CustomerCustomField
+  custom_field?: CustomerCustomField
 }

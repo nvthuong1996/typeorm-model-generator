@@ -17,7 +17,7 @@ import { CustomerTag } from './customer_tag.entity'
 @Entity('customer')
 export class Customer {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number
+  id?: number
 
   @Column({ name: 'company_id' })
   company_id: number
@@ -95,28 +95,28 @@ export class Customer {
   created_by?: number | null
 
   @CreateDateColumn({ name: 'created_at', update: false })
-  created_at: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date
+  updated_at?: Date
 
   @Column({ name: 'code_index', nullable: true })
   code_index?: number | null
 
   @OneToMany(() => CustomerAddress, (customer_address) => customer_address.customers)
-  customer_addresses: CustomerAddress[]
+  customer_addresses?: CustomerAddress[]
 
   @OneToMany(() => CustomerChannel, (customer_channel) => customer_channel.customer)
-  customer_channels: CustomerChannel[]
+  customer_channels?: CustomerChannel[]
 
   @OneToMany(
     () => CustomerCustomFieldvalue,
     (customer_custom_fieldvalue) => customer_custom_fieldvalue.customers,
   )
-  customer_custom_fieldvalues: CustomerCustomFieldvalue[]
+  customer_custom_fieldvalues?: CustomerCustomFieldvalue[]
 
   @OneToMany(() => CustomerNote, (customer_note) => customer_note.customers)
-  customer_notes: CustomerNote[]
+  customer_notes?: CustomerNote[]
 
   @ManyToMany(() => CustomerTag, (customer_tag) => customer_tag.customers)
   @JoinTable({
@@ -124,5 +124,5 @@ export class Customer {
     joinColumns: [{ name: 'customers_id', referencedColumnName: 'id' }],
     inverseJoinColumns: [{ name: 'tags_id', referencedColumnName: 'id' }],
   })
-  customer_tags: CustomerTag[]
+  customer_tags?: CustomerTag[]
 }

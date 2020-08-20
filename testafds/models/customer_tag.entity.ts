@@ -11,7 +11,7 @@ import { Customer } from './customer.entity'
 @Entity('customer_tag')
 export class CustomerTag {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number
+  id?: number
 
   @Column({ name: 'company_id' })
   company_id: number
@@ -32,11 +32,11 @@ export class CustomerTag {
   created_by?: number | null
 
   @CreateDateColumn({ name: 'created_at', update: false })
-  created_at: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date
+  updated_at?: Date
 
   @ManyToMany(() => Customer, (customer) => customer.customer_tags)
-  customers: Customer[]
+  customers?: Customer[]
 }

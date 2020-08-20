@@ -552,6 +552,16 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
         }
         return "Column";
     });
+
+    Handlebars.registerHelper("optionField", (str) => {
+        if (str === "created_at" || str === "id") {
+            return true;
+        } else if (str === "updated_at") {
+            return true;
+        }
+        return false;
+    });
+
     Handlebars.registerHelper("curly", function (object, open) {
         return open ? "{" : "}";
     });

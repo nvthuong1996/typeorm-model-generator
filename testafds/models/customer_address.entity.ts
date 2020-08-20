@@ -12,7 +12,7 @@ import { Customer } from './customer.entity'
 @Entity('customer_address')
 export class CustomerAddress {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number
+  id?: number
 
   @Column({ name: 'company_id', nullable: true, default: 0 })
   company_id?: number | null
@@ -66,10 +66,10 @@ export class CustomerAddress {
   is_shipping?: boolean | null
 
   @CreateDateColumn({ name: 'created_at', update: false })
-  created_at: Date
+  created_at?: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date
+  updated_at?: Date
 
   @Column({ name: 'customers_id' })
   customers_id: number
@@ -79,5 +79,5 @@ export class CustomerAddress {
     onUpdate: 'NO ACTION',
   })
   @JoinColumn([{ name: 'customers_id', referencedColumnName: 'id' }])
-  customers: Customer
+  customers?: Customer
 }
