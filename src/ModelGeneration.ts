@@ -38,15 +38,15 @@ export default function modelGenerationPhase(
         createTsConfigFile(resultPath);
         createTypeOrmConfig(resultPath, connectionOptions);
 
-        entitiesPath = path.resolve(resultPath, "./service/models");
+        entitiesPath = path.resolve(resultPath, "./models");
         if (!fs.existsSync(entitiesPath)) {
             fs.mkdirSync(entitiesPath);
         }
-        interfacePath = path.resolve(resultPath, "./service/interface");
+        interfacePath = path.resolve(resultPath, "./interface");
         if (!fs.existsSync(interfacePath)) {
             fs.mkdirSync(interfacePath);
         }
-        repositoryPath = path.resolve(resultPath, "./service/repository");
+        repositoryPath = path.resolve(resultPath, "./repository");
         if (!fs.existsSync(repositoryPath)) {
             fs.mkdirSync(repositoryPath);
         }
