@@ -498,6 +498,15 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
             return false;
         }
     });
+
+    Handlebars.registerHelper("isQueryOperator", (str: string) => {
+        if (str.includes("|")) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+
     Handlebars.registerHelper("upperCase", (str: string) => {
         return str.toUpperCase();
     });
