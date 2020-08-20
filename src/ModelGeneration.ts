@@ -637,10 +637,10 @@ function createTsConfigFile(outputPath: string): void {
     const rendered = compliedTemplate({});
     const formatted = Prettier.format(rendered, { parser: "json" });
     const resultFilePath = path.resolve(outputPath, "tsconfig.json");
-    fs.writeFileSync(resultFilePath, formatted, {
-        encoding: "utf-8",
-        flag: "w",
-    });
+    // fs.writeFileSync(resultFilePath, formatted, {
+    //     encoding: "utf-8",
+    //     flag: "w",
+    // });
 }
 function createTypeOrmConfig(
     outputPath: string,
@@ -654,8 +654,8 @@ function createTypeOrmConfig(
     const rendered = compliedTemplate(connectionOptions);
     const formatted = Prettier.format(rendered, { parser: "json" });
     const resultFilePath = path.resolve(outputPath, "ormconfig.json");
-    fs.writeFileSync(resultFilePath, formatted, {
-        encoding: "utf-8",
-        flag: "w",
-    });
+    // fs.writeFileSync(resultFilePath, formatted, {
+    //     encoding: "utf-8",
+    //     flag: "w",
+    // });
 }
