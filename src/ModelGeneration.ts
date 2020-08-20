@@ -98,7 +98,7 @@ function generateService(
       settings: {
         entityValidator: getSchema(entityName),
       },
-      mixins: [],
+      mixins: [ActionMixins()],
       hooks: {
         before: {},
       },
