@@ -30,7 +30,7 @@ export class CustomerCustomField {
   @Column({ name: 'is_required', nullable: true, width: 1, default: 0 })
   is_required: boolean | null
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })

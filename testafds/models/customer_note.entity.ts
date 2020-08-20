@@ -20,7 +20,7 @@ export class CustomerNote {
   @Column({ name: 'note', nullable: true })
   note: string | null
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })

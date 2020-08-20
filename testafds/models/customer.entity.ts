@@ -94,7 +94,7 @@ export class Customer {
   @Column({ name: 'created_by', nullable: true, default: 0 })
   created_by: number | null
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })

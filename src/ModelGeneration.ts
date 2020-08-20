@@ -490,6 +490,14 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
         const withoutQuotes = json.replace(/"([^(")"]+)":/g, "$1:");
         return withoutQuotes.slice(1, withoutQuotes.length - 1);
     });
+
+    Handlebars.registerHelper("isUpdate", (str) => {
+        if (str === "created_at") {
+            return true;
+        } else {
+            return false;
+        }
+    });
     Handlebars.registerHelper("upperCase", (str: string) => {
         return str.toUpperCase();
     });

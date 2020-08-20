@@ -5,7 +5,7 @@
 import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 {{/inline}}
 {{#*inline "Column"}}
-{{#generated}}@PrimaryGeneratedColumn({type:"{{type}}", {{/generated}}{{^generated}}@{{handleColumn tscName}}({ {{#primary}}primary:{{primary}},{{/primary}}{{/generated}}{{json options}}{{#default}},default: {{.}},{{/default}} })
+{{#generated}}@PrimaryGeneratedColumn({type:"{{type}}", {{/generated}}{{^generated}}@{{handleColumn tscName}}({ {{#primary}}primary:{{primary}},{{/primary}}{{/generated}}{{json options}}{{#default}},default: {{.}},{{/default}} {{#if (isUpdate tscName) }},update:false{{/if}} })
 {{printPropertyVisibility}}{{tscName}}{{strictMode}}:{{tscType}}{{#if options.nullable}} | null{{/if}};
 
 {{/inline}}

@@ -38,7 +38,7 @@ export class CustomerChannel {
   @Column({ name: 'staff_id', nullable: true, default: 0 })
   staff_id: number | null
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })

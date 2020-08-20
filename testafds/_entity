@@ -1,0 +1,8 @@
+import {Customer,
+CustomerAddress,
+CustomerChannel,
+CustomerCustomField,
+CustomerCustomFieldvalue,
+CustomerNote,
+CustomerTag,
+} from './models'

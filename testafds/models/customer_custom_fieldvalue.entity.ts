@@ -21,7 +21,7 @@ export class CustomerCustomFieldvalue {
   @Column({ name: 'value' })
   value: string
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })

@@ -65,7 +65,7 @@ export class CustomerAddress {
   @Column({ name: 'is_shipping', nullable: true, width: 1, default: 0 })
   is_shipping: boolean | null
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ name: 'created_at', update: false })
   created_at: Date
 
   @UpdateDateColumn({ name: 'updated_at' })
