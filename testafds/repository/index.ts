@@ -1,0 +1,7 @@
+export * from './customer.repository'
+export * from './customer_address.repository'
+export * from './customer_channel.repository'
+export * from './customer_custom_field.repository'
+export * from './customer_custom_fieldvalue.repository'
+export * from './customer_note.repository'
+export * from './customer_tag.repository'

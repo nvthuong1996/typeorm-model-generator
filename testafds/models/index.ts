@@ -1,0 +1,7 @@
+export * from './customer.entity'
+export * from './customer_address.entity'
+export * from './customer_channel.entity'
+export * from './customer_custom_field.entity'
+export * from './customer_custom_fieldvalue.entity'
+export * from './customer_note.entity'
+export * from './customer_tag.entity'
