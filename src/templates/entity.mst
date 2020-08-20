@@ -16,7 +16,7 @@ import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 @{{relationType}}(()=>{{toEntityName relatedTable}},{{toPropertyName relatedTable}}=>{{toPropertyName relatedTable}}.{{toPropertyName relatedField}}{{#if relationOptions}},{ {{json relationOptions}} }{{/if}})
 {{#if joinColumnOptions}}@JoinColumn([{{#joinColumnOptions}}{{> JoinColumnOptions}}{{/joinColumnOptions}}]){{/if}}
 {{#joinTableOptions}}@JoinTable({ name:"{{name}}", joinColumns:[{{#joinColumns}}{{> JoinColumnOptions}}{{/joinColumns}}],inverseJoinColumns:[{{#inverseJoinColumns}}{{> JoinColumnOptions}}{{/inverseJoinColumns}}] }){{/joinTableOptions}}
-{{printPropertyVisibility}}{{toFieldRelationName fieldName}}{{strictMode}}:{{toRelation (toEntityName relatedTable) relationType}};
+{{printPropertyVisibility}}{{toPropertyName fieldName}}{{strictMode}}:{{toRelation (toEntityName relatedTable) relationType}};
 
 {{/inline}}
 {{#*inline "RelationId"}}

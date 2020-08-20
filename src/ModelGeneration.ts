@@ -582,21 +582,7 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
             : ""
     );
     Handlebars.registerHelper("toPropertyName", (str) => {
-        let retStr = "";
-        switch (generationOptions.convertCaseProperty) {
-            case "camel":
-                retStr = changeCase.camelCase(str);
-                break;
-            case "pascal":
-                retStr = changeCase.pascalCase(str);
-                break;
-            case "none":
-                retStr = str;
-                break;
-            default:
-                throw new Error("Unknown case style");
-        }
-        return retStr;
+        return changeCase.snakeCase(str);
     });
     Handlebars.registerHelper("toFieldRelationName", (str) => {
         return changeCase.snakeCase(str);
