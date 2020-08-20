@@ -28,6 +28,11 @@ export default function modelGenerationPhase(
     createHandlebarsHelpers(generationOptions);
 
     const resultPath = generationOptions.resultsPath;
+
+    if (fs.existsSync(path.resolve(resultPath))) {
+        throw new Error("Folder " + resultPath + " already exist");
+    }
+
     if (!fs.existsSync(resultPath)) {
         fs.mkdirSync(resultPath);
     }
@@ -37,10 +42,6 @@ export default function modelGenerationPhase(
     if (!generationOptions.noConfigs) {
         createTsConfigFile(resultPath);
         createTypeOrmConfig(resultPath, connectionOptions);
-
-        if (fs.existsSync(path.resolve(resultPath))) {
-            throw new Error("Folder " + resultPath + " already exist");
-        }
 
         entitiesPath = path.resolve(resultPath, "./models");
         if (!fs.existsSync(entitiesPath)) {

@@ -1,7 +1,0 @@
-CUSTOMER : 'customer',
-CUSTOMER_ADDRESS : 'customer_address',
-CUSTOMER_CHANNEL : 'customer_channel',
-CUSTOMER_CUSTOM_FIELD : 'customer_custom_field',
-CUSTOMER_CUSTOM_FIELDVALUE : 'customer_custom_fieldvalue',
-CUSTOMER_NOTE : 'customer_note',
-CUSTOMER_TAG : 'customer_tag',
