@@ -35,7 +35,7 @@ export function getDefaultGenerationOptions(): IGenerationOptions {
         resultsPath: path.resolve(process.cwd(), "output"),
         pluralizeNames: true,
         noConfigs: false,
-        convertCaseFile: "pascal",
+        convertCaseFile: "none",
         convertCaseEntity: "pascal",
         convertCaseProperty: "camel",
         convertEol: EOL === "\n" ? "LF" : "CRLF",

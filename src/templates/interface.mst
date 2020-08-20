@@ -5,8 +5,7 @@
 import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 {{/inline}}
 {{#*inline "Column"}}
-{{#generated}}@PrimaryGeneratedColumn({type:"{{type}}", {{/generated}}{{^generated}}@{{handleColumn tscName}}({ {{#primary}}primary:{{primary}},{{/primary}}{{/generated}}{{json options}}{{#default}},default: {{.}},{{/default}} })
-{{printPropertyVisibility}}{{tscName}}{{strictMode}}:{{tscType}}{{#if options.nullable}} | null{{/if}};
+{{printPropertyVisibility}}{{tscName}}{{strictMode}}:{{tscType}};
 
 {{/inline}}
 {{#*inline "JoinColumnOptions"}}
@@ -15,7 +14,7 @@ import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 {{#*inline "Relation"}}
 @{{relationType}}(()=>{{toEntityName relatedTable}},{{toPropertyName relatedTable}}=>{{toPropertyName relatedTable}}.{{toPropertyName relatedField}}{{#if relationOptions}},{ {{json relationOptions}} }{{/if}})
 {{#if joinColumnOptions}}@JoinColumn([{{#joinColumnOptions}}{{> JoinColumnOptions}}{{/joinColumnOptions}}]){{/if}}
-{{#joinTableOptions}}@JoinTable({ name:"{{name}}", joinColumns:[{{#joinColumns}}{{> JoinColumnOptions}}{{/joinColumns}}],inverseJoinColumns:[{{#inverseJoinColumns}}{{> JoinColumnOptions}}{{/inverseJoinColumns}}] }){{/joinTableOptions}}
+{{#joinTableOptions}}@JoinTable({ name:"{{name}}", joinColumns:[{{#joinColumns}}{{> JoinColumnOptions}}{{/joinColumns}}],inverseJoinColumns:[{{#inverseJoinColumns}}{{> JoinColumnOptions}}{{/inverseJoinColumns}}],{{#database}}database:"{{.}}",{{/database}}{{#schema}}schema:"{{.}}"{{/schema}} }){{/joinTableOptions}}
 {{printPropertyVisibility}}{{toPropertyName fieldName}}{{strictMode}}:{{toRelation (toEntityName relatedTable) relationType}};
 
 {{/inline}}
@@ -31,16 +30,11 @@ import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 }
 {{/inline}}
 {{#*inline "Entity"}}
-@Entity("{{sqlName}}")
-export {{defaultExport}} class {{toEntityName tscName}}{{#activeRecord}} extends BaseEntity{{/activeRecord}} {
+{}
+export {{defaultExport}} interface Query{{toClassName tscName}}{{#activeRecord}} extends BaseEntity{{/activeRecord}} {
 
 {{#columns}}{{> Column}}{{/columns~}}
-{{#relations}}{{> Relation}}{{/relations~}}
-{{#relationIds}}{{> RelationId entityName=../tscName}}{{/relationIds~}}
-{{#if generateConstructor}}{{>Constructor entityName=tscName}}{{/if~}}
 }
 {{/inline}}
-import {BaseEntity,Column,Entity,Index,JoinColumn,UpdateDateColumn,CreateDateColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
-{{#fileImports}}{{> Import}}{{/fileImports}}
 
 {{> Entity}}

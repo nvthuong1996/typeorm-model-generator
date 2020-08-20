@@ -9,7 +9,7 @@ export type Column = {
 
     primary?: boolean;
     generated?: true | "increment" | "uuid";
-    default?: string; // ?
+    default?: string | number; // ?
     options: {
         name: string;
         length?: number;

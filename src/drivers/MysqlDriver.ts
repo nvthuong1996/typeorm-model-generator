@@ -532,10 +532,16 @@ export default class MysqlDriver extends AbstractDriver {
     private static ReturnDefaultValueFunction(
         defVal: string | undefined,
         dataType: string
-    ): string | undefined {
+    ): string | undefined | number {
         let defaultValue = defVal;
         if (!defaultValue || defaultValue === "NULL") {
             return undefined;
+        }
+        if (dataType === "varchar" || dataType === "enum") {
+            return `'${defaultValue}'`;
+        }
+        if (dataType === "int" || dataType === "tinyint") {
+            return parseInt(defaultValue.toString());
         }
         if (defaultValue.toLowerCase() === "current_timestamp()") {
             defaultValue = "CURRENT_TIMESTAMP";
