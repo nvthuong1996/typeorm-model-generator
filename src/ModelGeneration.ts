@@ -66,12 +66,12 @@ export default function modelGenerationPhase(
     generateContainer(
         databaseModel,
         generationOptions,
-        path.resolve(resultPath, "./service")
+        path.resolve(resultPath, "./")
     );
     generateService(
         databaseModel,
         generationOptions,
-        path.resolve(resultPath, "./service")
+        path.resolve(resultPath, "./")
     );
 }
 function generateService(
