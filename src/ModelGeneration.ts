@@ -38,6 +38,10 @@ export default function modelGenerationPhase(
         createTsConfigFile(resultPath);
         createTypeOrmConfig(resultPath, connectionOptions);
 
+        if (fs.existsSync(path.resolve(resultPath))) {
+            throw new Error("Folder " + resultPath + " already exist");
+        }
+
         entitiesPath = path.resolve(resultPath, "./models");
         if (!fs.existsSync(entitiesPath)) {
             fs.mkdirSync(entitiesPath);
