@@ -46,5 +46,5 @@ export class CustomerCustomFieldvalue {
     { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' },
   )
   @JoinColumn([{ name: 'custom_field_id', referencedColumnName: 'id' }])
-  customField: CustomerCustomField
+  custom_field: CustomerCustomField
 }

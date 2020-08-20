@@ -598,6 +598,9 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
         }
         return retStr;
     });
+    Handlebars.registerHelper("toFieldRelationName", (str) => {
+        return changeCase.snakeCase(str);
+    });
     Handlebars.registerHelper(
         "toRelation",
         (entityType: string, relationType: Relation["relationType"]) => {

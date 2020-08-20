@@ -40,5 +40,5 @@ export class CustomerCustomField {
     () => CustomerCustomFieldvalue,
     (customerCustomFieldvalue) => customerCustomFieldvalue.customField,
   )
-  customerCustomFieldvalues: CustomerCustomFieldvalue[]
+  customer_custom_fieldvalues: CustomerCustomFieldvalue[]
 }

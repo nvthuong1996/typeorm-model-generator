@@ -104,19 +104,19 @@ export class Customer {
   code_index: number | null
 
   @OneToMany(() => CustomerAddress, (customerAddress) => customerAddress.customers)
-  customerAddresses: CustomerAddress[]
+  customer_addresses: CustomerAddress[]
 
   @OneToMany(() => CustomerChannel, (customerChannel) => customerChannel.customer)
-  customerChannels: CustomerChannel[]
+  customer_channels: CustomerChannel[]
 
   @OneToMany(
     () => CustomerCustomFieldvalue,
     (customerCustomFieldvalue) => customerCustomFieldvalue.customers,
   )
-  customerCustomFieldvalues: CustomerCustomFieldvalue[]
+  customer_custom_fieldvalues: CustomerCustomFieldvalue[]
 
   @OneToMany(() => CustomerNote, (customerNote) => customerNote.customers)
-  customerNotes: CustomerNote[]
+  customer_notes: CustomerNote[]
 
   @ManyToMany(() => CustomerTag, (customerTag) => customerTag.customers)
   @JoinTable({
@@ -124,5 +124,5 @@ export class Customer {
     joinColumns: [{ name: 'customers_id', referencedColumnName: 'id' }],
     inverseJoinColumns: [{ name: 'tags_id', referencedColumnName: 'id' }],
   })
-  customerTags: CustomerTag[]
+  customer_tags: CustomerTag[]
 }
