@@ -399,7 +399,10 @@ function generateModels(
             entitiesPath,
             `${casedFileName}.entity.ts`
         );
-        const rendered = entityCompliedTemplate(element);
+        const rendered = entityCompliedTemplate({
+            ...element,
+            indices: element.indices.filter((e) => e.options.unique),
+        });
         const withImportStatements = removeUnusedImports(
             EOL !== eolConverter[generationOptions.convertEol]
                 ? rendered.replace(

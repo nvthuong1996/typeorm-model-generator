@@ -1,5 +1,5 @@
 {{#*inline "Index"}}
-@Index("{{name}}",[{{#columns}}"{{toPropertyName .}}",{{/columns~}}],{ {{json options}} })
+@Unique("{{name}}",[{{#columns}}"{{toPropertyName .}}",{{/columns~}}])
 {{/inline}}
 {{#*inline "Import"}}
 import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
@@ -31,6 +31,7 @@ import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 }
 {{/inline}}
 {{#*inline "Entity"}}
+{{#indices}}{{> Index}}{{/indices~}}
 @Entity("{{sqlName}}")
 export {{defaultExport}} class {{toEntityName tscName}}{{#activeRecord}} extends BaseEntity{{/activeRecord}} {
 
@@ -40,7 +41,7 @@ export {{defaultExport}} class {{toEntityName tscName}}{{#activeRecord}} extends
 {{#if generateConstructor}}{{>Constructor entityName=tscName}}{{/if~}}
 }
 {{/inline}}
-import {BaseEntity,Column,Entity,Index,JoinColumn,UpdateDateColumn,CreateDateColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
+import {BaseEntity,Column,Entity,Unique,JoinColumn,UpdateDateColumn,CreateDateColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
 {{#fileImports}}{{> Import}}{{/fileImports}}
 
 {{> Entity}}
