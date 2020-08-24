@@ -18,8 +18,8 @@ export class {{toClassName tscName}}Repository extends TypeOrmBaseRepository<
   protected aliasName = C.SERVICE_NAME.{{upperCase tscName}}
   protected errorNotFound = ErrorCodes.CommonError.NOT_FOUND
 
-  constructor() {
+  constructor(connectionName:string) {
     super()
-    this.db = getConnection(C.SERVICE_NAME.{{upperCase tscName}}).getRepository({{toEntityName tscName}})
+    this.db = getConnection(connectionName).getRepository({{toEntityName tscName}})
   }
 }

@@ -82,7 +82,7 @@ function generateService(
     const all: string[] = [];
     const result = `
     'use strict'
-    import { getSchema } from 'fastest-validator-decorators'
+    import { getSchema } from '@Common/decorator/fast-validate-decorator'
     import { Context } from 'moleculer'
     import { Method, Service } from 'moleculer-decorators'
     
@@ -95,12 +95,11 @@ function generateService(
     
     @Service({
       name: C.SERVICE_NAME.serviceXYZ,
-      settings: {
-        entityValidator: getSchema(entityName),
-      },
-      mixins: [ActionMixins()],
+      settings: {},
+      mixins: [ActionMixins(entityName)],
       hooks: {
         before: {},
+
       },
     })
     class serviceClassName extends MoleculerService {
@@ -165,17 +164,40 @@ function generateContainer(
     entitiesPath: string
 ) {
     const all: string[] = [];
+    const resultPath = generationOptions.resultsPath;
+    const servicePrimary = resultPath.split("/").pop();
+
     const result = `
-import { Container } from 'inversify'
+import { Container,ContainerModule } from 'inversify'
 import getDecorators from 'inversify-inject-decorators'
+import { getDbConnection } from '@Utils/db'
 
 import {
   abcdez
 } from './repository'
 
+import {
+    dasfjkdqo
+} from './models'
+
 const container = new Container()
 export const { lazyInject } = getDecorators(container)
-abcdezf`;
+const bindings = new ContainerModule(async (bind) => {
+    const schemaName = '${servicePrimary}'
+    const connectionName = '${servicePrimary}'
+    await getDbConnection({
+      schema: schemaName,
+      connectionName,
+      entities: [
+        dasfjkdqo 
+      ],
+    })
+    abcddsafdezf
+})
+
+container.load(bindings)
+`;
+    let entity = "";
     databaseModel.forEach((element) => {
         let nameClass = "";
         switch (generationOptions.convertCaseEntity) {
@@ -191,6 +213,9 @@ abcdezf`;
             default:
                 throw new Error("Unknown case style");
         }
+        const entityName = nameClass;
+        entity += entityName + ",\n";
+
         nameClass += "Repository";
         all.push(nameClass);
     });
@@ -198,10 +223,13 @@ abcdezf`;
     let b = "";
     all.forEach((e) => {
         a += e + ",\n";
-        b += `container.bind<${e}>(${e}).toSelf()\n`;
+        b += `bind<${e}>(${e}).toConstantValue(new ${e}(connectionName))\n`;
     });
 
-    const k = result.replace("abcdez", a).replace("abcdezf", b);
+    const k = result
+        .replace(/abcdez/g, a)
+        .replace(/abcddsafdezf/g, b)
+        .replace(/dasfjkdqo/g, entity);
 
     const resultFilePath = path.resolve(entitiesPath, `di_container.ts`);
     fs.writeFileSync(resultFilePath, Prettier.format(k, prettierOptions), {
@@ -556,6 +584,15 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
         return "Column";
     });
 
+    Handlebars.registerHelper("ignoreDefault", (str) => {
+        if (str === "created_at") {
+            return false;
+        } else if (str === "updated_at") {
+            return false;
+        }
+        return true;
+    });
+
     Handlebars.registerHelper("optionField", (str) => {
         if (str === "created_at" || str === "id") {
             return true;
@@ -571,12 +608,11 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
     Handlebars.registerHelper("curlyclose", function (open) {
         return "}";
     });
-    Handlebars.registerHelper("showType", (str) => {
-        if (str === "created_at" || str === "updated_at") {
-            return false;
-        } else {
+    Handlebars.registerHelper("showType", (type) => {
+        if (type === "enum") {
             return true;
         }
+        return false;
     });
     Handlebars.registerHelper("toFileName", (str) => {
         let retStr = "";
