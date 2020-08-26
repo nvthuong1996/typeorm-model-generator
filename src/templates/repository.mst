@@ -20,6 +20,6 @@ export class {{toClassName tscName}}Repository extends TypeOrmBaseRepository<
 
   constructor(connectionName:string) {
     super()
-    this.db = getConnection(connectionName).getRepository({{toEntityName tscName}})
+    this.db = getConnection(connectionName).getRepository({{toEntityName tscName}}.name)
   }
 }

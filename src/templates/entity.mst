@@ -6,6 +6,7 @@ import {{localImport (toEntityName .)}} from './{{toFileName .}}.entity'
 {{/inline}}
 {{#*inline "Column"}}
 {{#generated}}@PrimaryGeneratedColumn({type:"{{type}}", {{/generated}}{{^generated}}@{{handleColumn tscName}}({ {{#if (showType type)}} type:"{{type}}", {{/if}} {{#primary}}primary:{{primary}},{{/primary}}{{/generated}}{{json options}}{{#if (ignoreDefault tscName)}}{{#default}},default: {{.}}{{/default}}{{/if}}{{#if (isUpdate tscName) }},update:false{{/if}} })
+{{#if (forbiddenField ignoreField)}}@VForbidden(){{/if}}
 {{printPropertyVisibility}}{{tscName}}{{strictMode}}{{#if options.nullable}}?{{else}}{{#if (optionField tscName)}}?{{else}}{{#if primary}}?{{/if}}{{/if}}{{/if}}:{{tscType}}{{#if options.nullable}} | null{{/if}};
 
 {{/inline}}
@@ -42,6 +43,7 @@ export {{defaultExport}} class {{toEntityName tscName}}{{#activeRecord}} extends
 }
 {{/inline}}
 import {BaseEntity,Column,Entity,Unique,JoinColumn,UpdateDateColumn,CreateDateColumn,JoinTable,ManyToMany,ManyToOne,OneToMany,OneToOne,PrimaryColumn,PrimaryGeneratedColumn,RelationId} from "typeorm";
+import { VForbidden } from '@Common/decorator/fast-validate-decorator'
 {{#fileImports}}{{> Import}}{{/fileImports}}
 
 {{> Entity}}

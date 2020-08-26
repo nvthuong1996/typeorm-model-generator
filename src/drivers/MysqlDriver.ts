@@ -133,7 +133,7 @@ export default class MysqlDriver extends AbstractDriver {
                             tscType = "number";
                             break;
                         case "bigint":
-                            tscType = "string";
+                            tscType = "number";
                             break;
                         case "float":
                             tscType = "number";
@@ -540,7 +540,11 @@ export default class MysqlDriver extends AbstractDriver {
         if (dataType === "varchar" || dataType === "enum") {
             return `'${defaultValue}'`;
         }
-        if (dataType === "int" || dataType === "tinyint") {
+        if (
+            dataType === "int" ||
+            dataType === "tinyint" ||
+            dataType === "bigint"
+        ) {
             return parseInt(defaultValue.toString());
         }
         if (defaultValue.toLowerCase() === "current_timestamp()") {

@@ -156,7 +156,7 @@ function generateService(
     const resultFilePath = path.resolve(entitiesPath, `_constant`);
     const pathEntity = path.resolve(entitiesPath, `_entity`);
     fs.writeFileSync(resultFilePath, constant);
-    fs.writeFileSync(pathEntity, `import {${entity}} from './models'`);
+    // fs.writeFileSync(pathEntity, `import {${entity}} from './models'`);
 }
 function generateContainer(
     databaseModel: Entity[],
@@ -427,6 +427,39 @@ function generateModels(
             entitiesPath,
             `${casedFileName}.entity.ts`
         );
+
+        // loai bo khoa ngoai
+        element.columns.forEach((e) => {
+            if (e.tscName === "created_by") {
+                Object.assign(e, { ignoreField: true });
+            }
+            const join = element.relations.filter(
+                (f) => f.relationType === "ManyToOne"
+            );
+            join.forEach((g) => {
+                if (
+                    g.joinColumnOptions &&
+                    g.joinColumnOptions.find((f) => f.name === e.tscName)
+                ) {
+                    Object.assign(e, { ignoreField: true });
+                    delete e.default;
+                }
+            });
+        });
+
+        // one to many allow cascade
+        // element.relations.forEach((e) => {
+        //     if (e.relationType === "OneToMany") {
+        //         if (e.relationOptions) {
+        //             e.relationOptions.cascade = true;
+        //         } else {
+        //             e.relationOptions = {
+        //                 cascade: true,
+        //             };
+        //         }
+        //     }
+        // });
+
         const rendered = entityCompliedTemplate({
             ...element,
             indices: element.indices.filter((e) => e.options.unique),
@@ -605,11 +638,22 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
     Handlebars.registerHelper("curly", function (object, open) {
         return open ? "{" : "}";
     });
+
+    Handlebars.registerHelper("forbiddenField", function (type, relation) {
+        return type;
+    });
+
     Handlebars.registerHelper("curlyclose", function (open) {
         return "}";
     });
     Handlebars.registerHelper("showType", (type) => {
         if (type === "enum") {
+            return true;
+        }
+        if (type === "bigint") {
+            return true;
+        }
+        if (type === "object") {
             return true;
         }
         return false;

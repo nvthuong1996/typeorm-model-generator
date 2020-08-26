@@ -122,7 +122,7 @@ WHERE TABLE_TYPE='BASE TABLE' and TABLE_SCHEMA in (${schema}) AND TABLE_CATALOG 
                     let tscType = "";
                     switch (resp.DATA_TYPE) {
                         case "bigint":
-                            tscType = "string";
+                            tscType = "number";
                             break;
                         case "bit":
                             tscType = "boolean";
