@@ -1,25 +1,15 @@
 {}
-import { getConnection } from 'typeorm'
-import { injectable } from 'inversify'
+import { EntityRepository } from 'typeorm'
 
-import { TypeOrmBaseRepository } from '@Common/class'
-import { C } from '@Constant'
+import { TypeOrmBaseRepositoryNew } from '@Common/class'
 import { ErrorCodes } from '@Errors'
-import { {{toEntityName tscName}} } from '../models'
-import {  Query{{toClassName tscName}} } from '../interface'
 
-@injectable()
-export class {{toClassName tscName}}Repository extends TypeOrmBaseRepository<
- {{toEntityName tscName}} ,
-    Query{{toClassName tscName}} ,
-  {{toEntityName tscName}}
+import { {{toEntityName tscName}} } from '../models'
+
+@EntityRepository({{toClassName tscName}})
+export class {{toClassName tscName}}Repository extends TypeOrmBaseRepositoryNew<
+ {{toEntityName tscName}}
 > {
   // protected eagerRelations = ['parent']
-  protected aliasName = C.SERVICE_NAME.{{upperCase tscName}}
   protected errorNotFound = ErrorCodes.CommonError.NOT_FOUND
-
-  constructor(connectionName:string) {
-    super()
-    this.db = getConnection(connectionName).getRepository({{toEntityName tscName}}.name)
-  }
 }

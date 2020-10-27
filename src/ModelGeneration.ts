@@ -47,10 +47,10 @@ export default function modelGenerationPhase(
         if (!fs.existsSync(entitiesPath)) {
             fs.mkdirSync(entitiesPath);
         }
-        interfacePath = path.resolve(resultPath, "./interface");
-        if (!fs.existsSync(interfacePath)) {
-            fs.mkdirSync(interfacePath);
-        }
+        // interfacePath = path.resolve(resultPath, "./interface");
+        // if (!fs.existsSync(interfacePath)) {
+        //     fs.mkdirSync(interfacePath);
+        // }
         repositoryPath = path.resolve(resultPath, "./repository");
         if (!fs.existsSync(repositoryPath)) {
             fs.mkdirSync(repositoryPath);
@@ -61,7 +61,7 @@ export default function modelGenerationPhase(
         createIndexFile(databaseModel, generationOptions, entitiesPath);
     }
     generateModels(databaseModel, generationOptions, entitiesPath);
-    generateModels2(databaseModel, generationOptions, interfacePath);
+    // generateModels2(databaseModel, generationOptions, interfacePath);
     generateModels3(databaseModel, generationOptions, repositoryPath);
     generateContainer(
         databaseModel,
@@ -84,27 +84,24 @@ function generateService(
     'use strict'
     import { getSchema } from '@Common/decorator/fast-validate-decorator'
     import { Context } from 'moleculer'
-    import { Method, Service } from 'moleculer-decorators'
+    import { Method, Service } from '@Common/decorator/moleculer-decorator'
     
     import { MoleculerService } from '@Common/class'
     import { ActionMixins } from '@Mixins'
     import { C } from '@Constant'
     import { entityName } from './models'
     import { repositoryName } from './repository'
-    import { lazyInject } from './di_container'
+    import { connectionName } from "./connection";
+    import {lazyInjectRepository} from "@Common/decorator";
     
     @Service({
       name: C.SERVICE_NAME.serviceXYZ,
       settings: {},
-      mixins: [ActionMixins(entityName)],
-      hooks: {
-        before: {},
-
-      },
+      mixins: [ActionMixins(entityName)]
     })
     class serviceClassName extends MoleculerService {
-      @lazyInject(repositoryName)
-      protected repository: repositoryName
+        @lazyInjectRepository(connectionName, repositoryName)
+        repository: repositoryName
     }
     export default serviceClassName
     `;
@@ -168,34 +165,23 @@ function generateContainer(
     const servicePrimary = resultPath.split("/").pop();
 
     const result = `
-import { Container,ContainerModule } from 'inversify'
-import getDecorators from 'inversify-inject-decorators'
-import { getDbConnection } from '@Utils/db'
 
-import {
-  abcdez
-} from './repository'
-
-import {
-    dasfjkdqo
-} from './models'
-
-const container = new Container()
-export const { lazyInject } = getDecorators(container)
-const bindings = new ContainerModule(async (bind) => {
-    const schemaName = '${servicePrimary}'
-    const connectionName = '${servicePrimary}'
-    await getDbConnection({
-      schema: schemaName,
-      connectionName,
-      entities: [
-        dasfjkdqo 
-      ],
-    })
-    abcddsafdezf
-})
-
-container.load(bindings)
+    import { getDbConnection } from '@Utils/db'
+    import {
+        dasfjkdqo
+    } from './models'
+    export const connectionName = '${servicePrimary}'
+    export const schemaName = '${servicePrimary}'
+    const initConnection = async () => {
+      await getDbConnection({
+        schema: schemaName,
+        connectionName,
+        entities: [
+            dasfjkdqo
+        ],
+      })
+    }
+    initConnection()
 `;
     let entity = "";
     databaseModel.forEach((element) => {
@@ -231,7 +217,7 @@ container.load(bindings)
         .replace(/abcddsafdezf/g, b)
         .replace(/dasfjkdqo/g, entity);
 
-    const resultFilePath = path.resolve(entitiesPath, `di_container.ts`);
+    const resultFilePath = path.resolve(entitiesPath, `connection.ts`);
     fs.writeFileSync(resultFilePath, Prettier.format(k, prettierOptions), {
         encoding: "utf-8",
         flag: "w",
@@ -654,6 +640,9 @@ function createHandlebarsHelpers(generationOptions: IGenerationOptions): void {
             return true;
         }
         if (type === "object") {
+            return true;
+        }
+        if (type === "json") {
             return true;
         }
         return false;

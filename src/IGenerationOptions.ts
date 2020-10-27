@@ -42,7 +42,7 @@ export function getDefaultGenerationOptions(): IGenerationOptions {
         propertyVisibility: "none",
         lazy: false,
         activeRecord: false,
-        generateConstructor: false,
+        generateConstructor: true,
         customNamingStrategyPath: "",
         relationIds: false,
         strictMode: "none",

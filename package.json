@@ -6,9 +6,11 @@
   "main": "./dist/src/library.js",
   "types": "./dist/src/library.d.ts",
   "scripts": {
-    "start:product": "ts-node ./src/index.ts -h localhost -d gen_sale_product -p 33307 -u root -x thuong123 -e mysql -o product",
-    "start:importexport": "ts-node ./src/index.ts -h localhost -d gen_sale_importexport -p 33307 -u root -x thuong123 -e mysql -o importexport",
+    "start:product": "ts-node ./src/index.ts -h localhost -d gen_sale_product -p 33307 -u root -x 1 -e mysql -o product",
+    "start:partner": "ts-node ./src/index.ts -h localhost -d gen_sale_partner -p 33307 -u root -x 1 -e mysql -o partner",
+    "start:importexport": "ts-node ./src/index.ts -h localhost -d gen_sale_importexport -p 33307 -u root -x 1 -e mysql -o importexport",
     "start:customer": "ts-node ./src/index.ts -h localhost -d customer -p 3306 -u root -x password -e mysql -o customer",
+    "start:order": "ts-node ./src/index.ts -h localhost -d gen_sale_order -p 33307 -u root -x 1 -e mysql -o order",
     "build": "npm run clean && tsc && ncp src/templates/ dist/src/templates/ && ncp package.json dist/package.json",
     "prepare": "npm run build",
     "pretest": "tsc --noEmit",

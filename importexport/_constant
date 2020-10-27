@@ -1,8 +1,0 @@
-PRODUCT_EXPORT_ITEM : 'product_export_item',
-PRODUCT_EXPORTS : 'product_exports',
-PRODUCT_IMPORT_ITEM : 'product_import_item',
-PRODUCT_IMPORTS : 'product_imports',
-PRODUCT_TRANSFERS : 'product_transfers',
-PRODUCT_TRANSFERS_ITEM : 'product_transfers_item',
-STOCK_ADJUSTMENTS : 'stock_adjustments',
-TRANSACTIONS : 'transactions',
